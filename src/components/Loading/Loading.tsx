@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Loading.module.less';
-import gsapScript from './island/gsap.min.js?raw';
-import motionPathPlugin from './island/MotionPathPlugin.min.js?raw';
-import animationScript from './island/script.js?raw';
+import { gsap } from './island/gsap.min.js';
+import { MotionPathPlugin } from './island/MotionPathPlugin.min.js';
+import { startAnimation } from './island/script.js';
 
 export interface LoadingProps {
     className?: string;
@@ -85,24 +85,7 @@ export const Loading: React.FC<LoadingProps> = ({ className, style, active = tru
 
     useEffect(() => {
         if (!containerRef.current) return;
-
-        const script1 = document.createElement('script');
-        script1.textContent = gsapScript;
-        containerRef.current.appendChild(script1);
-
-        const script2 = document.createElement('script');
-        script2.textContent = motionPathPlugin;
-        containerRef.current.appendChild(script2);
-
-        const script3 = document.createElement('script');
-        script3.textContent = animationScript;
-        containerRef.current.appendChild(script3);
-
-        return () => {
-            script1.remove();
-            script2.remove();
-            script3.remove();
-        };
+        startAnimation(gsap, MotionPathPlugin);
     }, []);
 
     useEffect(() => {
