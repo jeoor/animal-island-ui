@@ -2,9 +2,9 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { domToCanvas } from 'modern-screenshot';
 import styles from './weddingInvitation.module.less';
 import weddingTitleImg from './img/wedding.PNG';
-import iconMap from '../../assets/img/icons/icon-map.svg';
 import brideAndGroomImg from './img/brideandgroom.PNG';
 import { injectWeddingFonts, prepareWeddingFontsForExport } from './fonts';
+import { Icon } from '../Icon';
 
 // 模块加载即注入 @font-face —— 网页本身就用这套字体；
 // 导出 PNG 时同一批字体会被转成 data URL 注入 SVG，确保渲染一致。
@@ -328,7 +328,7 @@ export const WeddingInvitation = forwardRef<WeddingInvitationRef, WeddingInvitat
 
                 <div className={styles.venueCard}>
                     <span className={styles.venueIcon}>
-                        <img src={iconMap} alt="venue" width={26} height={26} />
+                        <Icon name="icon-map" size={26} />
                     </span>
                     <div className={styles.venueText}>
                         <div className={styles.venueName}>{venue}</div>

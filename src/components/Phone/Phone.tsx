@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './phone.module.less';
+import { Icon, IconName } from '../Icon';
 
 export interface PhoneProps {
     className?: string;
@@ -7,22 +8,23 @@ export interface PhoneProps {
 
 interface App {
     id: string;
-    iconClass: string;
+    iconName: IconName;
     color: string;
     offset?: boolean;
     hasNewMessage?: boolean;
+    iconStyle?: React.CSSProperties;
 }
 
 const apps: App[] = [
-    { id: 'camera', iconClass: 'iconCamera', color: '#B77DEE', hasNewMessage: true },
-    { id: 'app', iconClass: 'iconMiles', color: '#889DF0', offset: true },
-    { id: 'critterpedia', iconClass: 'iconCritterpedia', color: '#F7CD67' },
-    { id: 'diy', iconClass: 'iconDiy', color: '#E59266' },
-    { id: 'shopping', iconClass: 'iconDesign', color: '#F8A6B2' },
-    { id: 'variant', iconClass: 'iconMap', color: '#82D5BB', hasNewMessage: true },
-    { id: 'design', iconClass: 'iconVariant', color: '#8AC68A' },
-    { id: 'map', iconClass: 'iconHelicopter', color: '#FC736D' },
-    { id: 'chat', iconClass: 'iconChat', color: '#D1DA49' },
+    { id: 'camera', iconName: 'icon-camera', color: '#B77DEE', hasNewMessage: true },
+    { id: 'app', iconName: 'icon-miles', color: '#889DF0', offset: true },
+    { id: 'critterpedia', iconName: 'icon-critterpedia', color: '#F7CD67', iconStyle: { width: '105px' } },
+    { id: 'diy', iconName: 'icon-diy', color: '#E59266' },
+    { id: 'shopping', iconName: 'icon-design', color: '#F8A6B2' },
+    { id: 'variant', iconName: 'icon-map', color: '#82D5BB', hasNewMessage: true, iconStyle: { width: '90px' } },
+    { id: 'design', iconName: 'icon-variant', color: '#8AC68A', iconStyle: { width: '80px' } },
+    { id: 'map', iconName: 'icon-helicopter', color: '#FC736D' },
+    { id: 'chat', iconName: 'icon-chat', color: '#D1DA49' },
 ];
 
 export const Phone: React.FC<PhoneProps> = ({ className }) => {
@@ -62,8 +64,11 @@ export const Phone: React.FC<PhoneProps> = ({ className }) => {
                                     style={{ backgroundColor: app.color }}
                                 >
                                     {app.hasNewMessage && <span className={styles.badge} />}
-                                    <span
-                                        className={`${styles.appIcon} ${styles[app.iconClass]} ${app.offset ? styles.appIconOffset : ''}`}
+                                    <Icon
+                                        name={app.iconName}
+                                        size="100%"
+                                        className={`${styles.appIcon} ${app.offset ? styles.appIconOffset : ''}`}
+                                        style={{ backgroundSize: '70% auto', ...app.iconStyle }}
                                     />
                                 </div>
                             ))}
