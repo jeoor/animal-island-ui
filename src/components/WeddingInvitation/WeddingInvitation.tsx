@@ -1,13 +1,9 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import styles from './weddingInvitation.module.less';
 import weddingTitleImg from './img/wedding.webp';
 import brideAndGroomImg from './img/brideandgroom.webp';
 import { injectWeddingFonts, prepareWeddingFontsForExport } from './fonts';
 import { Icon } from '../Icon';
-
-// 模块加载即注入 @font-face —— 网页本身就用这套字体；
-// 导出 PNG 时同一批字体会被转成 data URL 注入 SVG，确保渲染一致。
-injectWeddingFonts();
 
 export interface WeddingInvitationProps {
     /** 新郎名 */
@@ -241,6 +237,10 @@ export const WeddingInvitation = forwardRef<WeddingInvitationRef, WeddingInvitat
         ref
     ) => {
         const rootRef = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+            injectWeddingFonts();
+        }, []);
 
         const exportAsImage = React.useCallback(async (filename = 'wedding-invitation') => {
             if (!rootRef.current) return;
